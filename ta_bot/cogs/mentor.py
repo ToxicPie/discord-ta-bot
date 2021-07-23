@@ -3,7 +3,6 @@ from typing import Optional
 
 import discord
 from discord.ext import commands
-from discord_components import Button, ButtonStyle, InteractionType
 
 from ..utils.database import MentorDbConn
 
