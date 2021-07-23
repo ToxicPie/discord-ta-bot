@@ -2,7 +2,9 @@
 
 ## Setting up
 
-First, create an application in the [Discord developer portal](https://discord.com/developers/applications/) and add a bot to it. Invite the bot to your server with the `Administrator` permission.
+First, create an application in the [Discord developer portal](https://discord.com/developers/applications/) and add a bot to it.
+Under the app's OAuth2 settings page, enable the scopes `bot` and `applications.commands`, and add the `Administrator` bot permission.
+Go to the URL generated and add the bot to your server.
 
 Then, copy the file `environment-example.env` to `environment.env` and edit its content:
 
@@ -10,6 +12,8 @@ Then, copy the file `environment-example.env` to `environment.env` and edit its 
 - `DISCORD_BOT_TOKEN` is the secret token of you bot (can be found in the developer portal, on your app's bot settings page).
 
 Finally, run `docker-compose up --build` in the project directory to start the bot.
+
+**Hint**: Discord slash commands may take a while to update.
 
 ## Notes
 

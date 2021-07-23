@@ -8,7 +8,7 @@ from discord_slash import SlashCommand
 def setup_bot(prefix, intents=discord.Intents.default()):
     bot = commands.Bot(command_prefix=commands.when_mentioned_or(prefix),
                        intents=intents)
-    SlashCommand(bot)
+    SlashCommand(bot, sync_commands=True)
 
     cogs = [file.stem for file in pathlib.Path('ta_bot/cogs/').glob('*.py')]
     for cog in cogs:

@@ -2,6 +2,7 @@ import logging
 import traceback
 
 from discord.ext import commands
+from discord_slash.context import InteractionContext
 
 from ..utils import discord_utils
 
@@ -11,20 +12,24 @@ class ErrorHandlerCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.logger = logging.getLogger(__name__)
-        self.bot.add_listener(self.on_command_error, name='on_command_error')
+        self.bot.add_listener(self.on_error, name='on_command_error')
+        self.bot.add_listener(self.on_error, name='on_slash_command_error')
 
-    async def on_command_error(self, ctx: commands.Context, exception: Exception):
+    async def on_error(self, ctx, exception: Exception):
 
         async def send_error(title, desc):
-            await ctx.send(embed=discord_utils.embed_error(str(title),
-                                                           str(desc)))
+            error_embed = discord_utils.embed_error(str(title), str(desc))
+            if isinstance(ctx, InteractionContext):
+                await ctx.send(embed=error_embed, hidden=True)
+            else:
+                await ctx.send(embed=error_embed)
 
         if isinstance(exception, commands.CommandNotFound):
             await send_error('Command not found', exception)
 
         elif isinstance(exception, (commands.MissingPermissions,
                                     commands.MissingRole)):
-            await send_error('Command failed', exception)
+            await send_error('Forbidden', exception)
 
         elif isinstance(exception, commands.UserInputError):
             await send_error('Failed to invoke command', exception)
