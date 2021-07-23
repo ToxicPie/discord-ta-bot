@@ -1,3 +1,5 @@
+import pathlib
+
 import discord
 from discord.ext import commands
 from discord_components import DiscordComponents
@@ -8,7 +10,8 @@ def setup_bot(prefix, intents=discord.Intents.default()):
                        intents=intents)
     DiscordComponents(bot)
 
-    bot.load_extension(f'ta_bot.utils.error_handler')
-    bot.load_extension(f'ta_bot.cogs.mentor')
+    cogs = [file.stem for file in pathlib.Path('ta_bot/cogs/').glob('*.py')]
+    for cog in cogs:
+        bot.load_extension(f'ta_bot.cogs.{cog}')
 
     return bot
