@@ -9,5 +9,6 @@ def setup_bot(prefix, intents=discord.Intents.default()):
     DiscordComponents(bot)
 
     bot.load_extension(f'ta_bot.utils.error_handler')
+    bot.load_extension(f'ta_bot.cogs.mentor')
 
     return bot

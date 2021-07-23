@@ -13,9 +13,12 @@ async def command_error_handler(ctx: commands.Context, exception: Exception):
     if isinstance(exception, commands.CommandNotFound):
         await send_error('Command not found', exception)
 
-    elif isinstance(exception,
-                  (commands.MissingPermissions, commands.MissingRole)):
+    elif isinstance(exception, (commands.MissingPermissions,
+                                commands.MissingRole)):
         await send_error('Command failed', exception)
+
+    elif isinstance(exception, commands.UserInputError):
+        await send_error('Failed to invoke command', exception)
 
     elif isinstance(exception, commands.CheckFailure):
         await send_error('Command failed',
