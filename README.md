@@ -18,4 +18,4 @@ Finally, run `docker-compose up --build` in the project directory to start the b
 ## Notes
 
 - This bot was developed for personal use, and for a very specific purpose on a single server only. While it should work fine with multiple servers, some functions like configuration or general stability are yet to be improved.
-- No documentation is currently available.
+- As it is somewhat created in a rush, no documentation is currently available. Also, expect it to be quite buggy.
