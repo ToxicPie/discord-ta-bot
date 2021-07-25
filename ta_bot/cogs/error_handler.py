@@ -3,8 +3,9 @@ import traceback
 
 from discord.ext import commands
 from discord_slash.context import InteractionContext
+from discord_slash.error import SlashCommandError
 
-from ..utils import discord_utils
+from ..utils import discord_embeds
 
 
 class ErrorHandlerCog(commands.Cog):
@@ -18,7 +19,7 @@ class ErrorHandlerCog(commands.Cog):
     async def on_error(self, ctx, exception: Exception):
 
         async def send_error(title, desc):
-            error_embed = discord_utils.embed_error(str(title), str(desc))
+            error_embed = discord_embeds.embed_error(str(title), str(desc))
             if isinstance(ctx, InteractionContext):
                 await ctx.send(embed=error_embed, hidden=True)
             else:
@@ -38,7 +39,8 @@ class ErrorHandlerCog(commands.Cog):
             await send_error('Command failed',
                              'Some conditions were not satisfied.')
 
-        elif isinstance(exception, commands.CommandError):
+        elif isinstance(exception, (commands.CommandError,
+                                    SlashCommandError)):
             await send_error('Command failed',
                              'An unexpected error happened.')
 
