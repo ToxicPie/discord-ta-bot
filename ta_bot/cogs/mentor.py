@@ -345,12 +345,12 @@ class MentorCog(commands.Cog, name='Mentor'):
 
     @cog_ext.cog_subcommand(base='mentor',
                             name='ls',
-                            description='List users in all channels/queues'
-                                        'or in a given channel/queue',
+                            description='List users in a given channel/queue',
                             options=[
                                 create_option(
                                     name='channel',
-                                    description='The channel to list users in',
+                                    description='The channel to list users in. '
+                                                'Defaults to the current one.',
                                     option_type=SlashCommandOptionType.CHANNEL,
                                     required=False
                                 )
